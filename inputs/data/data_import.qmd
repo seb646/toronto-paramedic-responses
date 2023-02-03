@@ -1,9 +1,24 @@
+<!--
+#### Preamble ####
+# Purpose: Import data from the Toronto Paramedic Service via Open Data Toronto
+# Author: Sebastian Rodriguez
+# Email: me@srod.ca
+# Date: 3 February 2023
+# GitHub: https://github.com/seb646/toronto-paramedic-responses
+-->
+---
+title: "Import data from the Toronto Paramedic Service via Open Data Toronto"
+format: html
+author: "Sebastian Rodriguez"
+---
 ```{r}
-# Define required libraries
+#### Workspace set-up ####
 library(opendatatoronto)
 library(tidyverse)
 library(dplyr)
+```
 
+```{r}
 # Fetch Open Data Toronto's "Land Ambulance Response Time Standard" package: https://open.toronto.ca/dataset/land-ambulance-response-time-standard 
 raw_response_data <-
   list_package_resources("8b068db1-95b8-4ea9-b942-8a7ce3a5fbd6") |>
@@ -15,7 +30,9 @@ write_csv(
   x = raw_response_data$`Land Ambulance Services`,
   file = "raw_response_data.csv"
 )
+```
 
+```{r}
 # Fetch Open Data Toronto's "Pre-Hospital Emergency Care Performance Metrics" package:  https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics
 raw_emergent_care_data <-
   list_package_resources("174ace54-bcc7-4885-85c1-76094ab4a0ca") |>
@@ -28,7 +45,9 @@ write_csv(
   x = raw_emergent_care_data,
   file = "raw_emergent_care_data.csv"
 )
+```
 
+```{r}
 # Fetch Open Data Toronto's "Paramedic Services Incident Data" package: https://open.toronto.ca/dataset/paramedic-services-incident-data
 raw_incident_data <-
   list_package_resources("c21f3bd1-e016-4469-abf5-c58bb8e8b5ce") |>

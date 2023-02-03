@@ -1,3 +1,11 @@
+<!--
+#### Preamble ####
+# Title: The Response Time of Toronto's Paramedic Service: How effective is the city's emergency medical care?
+# Author: Sebastian Rodriguez
+# Email: me@srod.ca
+# Date: 3 February 2023
+# GitHub: https://github.com/seb646/toronto-paramedic-responses
+-->
 ---
 title: "The Response Time of Toronto's Paramedic Service: How effective is the city's emergency medical care?"
 format: pdf
@@ -11,21 +19,11 @@ number-sections: TRUE
 bibliography: references.bib
 thanks: "Code and data supporting this analysis is available at: https://github.com/seb646/toronto-paramedic-responses"
 ---
-
-## Introduction
-
-A city's emergency medical services (EMS) are integral to its health care system. The paramedics and emergency medical technicians working for the service provide pre-hospital assessment, stabilisation, and care to people needing medical assistance. These professionals respond to every call from the public for aid, from broken bones and heart attacks to car accidents and house fires. Current emergency medical services operate on the principle of the "golden hour," which is the 60 minutes between an initial injury and arrival at a trauma center when a patient has the highest statistical chance of survival [@cite_golden_hour]. This "golden hour" is the foundation of all emergency medical responses and typically requires medical personnel to arrive on the scene of an injury in under 10 minutes [@cite_golden_hour_10_mins].
-
-In Toronto, inhabitants receive emergency medical assistance through the Toronto Paramedic Services. As of 2020, the Toronto Paramedic Services employed 1,186 paramedics operating 234 ambulances out of 45 stations across the city [@cite_toronto_paramedic_2020_report]. The service provides all land ambulatory responses within the city, including on-scene treatment and stabilisation of patients, transport to a hospital, and transport between hospitals. The Province of Ontario and the City of Toronto set specific requirements for the length of time an ambulance should take when responding to an emergency call, which can be anywhere between 6 to 25 minutes. While the service strives to achieve these mandated goals, they face staffing, budget, and other institutional challenges that impact its ability to provide care. Recently, the service gained attention for slower response times because of staffing shortages in hospitals and in the service itself [@cite_paramedic_shortages]. These staffing shortages decrease the number of available paramedics while simultaneously increasing the time it takes for a patient to enter a hospital, tying up paramedics at hospitals. The recent COVID-19 pandemic also impacted the service, with most paramedics stating that morale is "either worse or as bad as it has ever been" [@cite_paramedic_morale].
-
-Despite the challenges that Toronto's paramedics face, they must respond to emergencies quickly to provide patients with the best chances of survival. This paper investigates the response times of the Toronto Paramedic Service compared to the mandated requirements set by the local and provincial governments. Specifically, the paper aims to place response times within a larger context of the service's responsibility and interrogate the relevance of the "golden hour" principle to determine the efficacy of the service. \newpage
-
-## Paramedic Response Data
-
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
+#### Workspace set-up ####
 # Define required libraries 
 library(lubridate)
 library(tidyverse)
@@ -51,8 +49,15 @@ raw_incident_data <- readr::read_csv(here::here("inputs/data/raw_incident_data.c
   clean_names()
 ```
 
-### Scope of Responsibility
+## Introduction
+A city's emergency medical services (EMS) are integral to its health care system. The paramedics and emergency medical technicians working for the service provide pre-hospital assessment, stabilisation, and care to people needing medical assistance. These professionals respond to every call from the public for aid, from broken bones and heart attacks to car accidents and house fires. Current emergency medical services operate on the principle of the "golden hour," which is the 60 minutes between an initial injury and arrival at a trauma center when a patient has the highest statistical chance of survival [@cite_golden_hour]. This "golden hour" is the foundation of all emergency medical responses and typically requires medical personnel to arrive on the scene of an injury in under 10 minutes [@cite_golden_hour_10_mins].
 
+In Toronto, inhabitants receive emergency medical assistance through the Toronto Paramedic Services. As of 2020, the Toronto Paramedic Services employed 1,186 paramedics operating 234 ambulances out of 45 stations across the city [@cite_toronto_paramedic_2020_report]. The service provides all land ambulatory responses within the city, including on-scene treatment and stabilisation of patients, transport to a hospital, and transport between hospitals. The Province of Ontario and the City of Toronto set specific requirements for the length of time an ambulance should take when responding to an emergency call, which can be anywhere between 6 to 25 minutes. While the service strives to achieve these mandated goals, they face staffing, budget, and other institutional challenges that impact its ability to provide care. Recently, the service gained attention for slower response times because of staffing shortages in hospitals and in the service itself [@cite_paramedic_shortages]. These staffing shortages decrease the number of available paramedics while simultaneously increasing the time it takes for a patient to enter a hospital, tying up paramedics at hospitals. The recent COVID-19 pandemic also impacted the service, with most paramedics stating that morale is "either worse or as bad as it has ever been" [@cite_paramedic_morale].
+
+Despite the challenges that Toronto's paramedics face, they must respond to emergencies quickly to provide patients with the best chances of survival. This paper investigates the response times of the Toronto Paramedic Service compared to the mandated requirements set by the local and provincial governments. Specifically, the paper aims to place response times within a larger context of the service's responsibility and interrogate the relevance of the "golden hour" principle to determine the efficacy of the service. \newpage
+
+## Paramedic Response Data
+### Scope of Responsibility
 Before investigating the response times and efficacy of the Toronto Paramedic Services, it is important to understand the service's breadth of responsibility. With a population of nearly 3 million people, Toronto requires a medical response to roughly 300,000 emergency calls every year. As the city's population grows, so too does the need for medical assistance. There was a steady increase of approximately 10,000 emergency medical requests per year from 2014 to 2019, as outlined by the graph below (@fig-1). This trend ended briefly in 2020 when the COVID-19 pandemic hit Toronto, placing an incredible strain on the city's healthcare system. Due to a concern about COVID-19 infection, many people delayed or avoided medical care throughout the pandemic [@cite_avoiding_hospitals].
 
 ```{r}
@@ -82,7 +87,6 @@ raw_emergent_care_data |>
   geom_bar(stat="identity", fill = "deepskyblue3")
   
 ```
-
 \newpage
 
 To further illustrate the responsibility of Toronto's paramedics, the table below (@fig-2) outlines the number of incidents, and ambulance dispatches the service fielded in 2021. The paramedic service responded to over 310,000 calls, ranging from routine medical emergencies to motor vehicle accidents and fires. These calls required a total of 315,788 ambulances, with an average of 865 ambulances dispatched per day. Most calls and incidents need between 1 and three ambulances. However, some severe incidents placed an even greater strain on the service's resources:
@@ -137,11 +141,9 @@ clean_incident_data |>
   row_spec(0,bold=TRUE) |>
   column_spec(1, width = "13em") 
 ```
-
 \newpage
 
 ### Mandated Response Times
-
 In Ontario, the *Ambulance Act* defines the rules governing paramedics' response times. The act defines response times as the difference between the time an emergency service dispatcher receives a call and the on-scene arrival of either an ambulance or a person equipped with a defibrillator [@cite_ambulance_act]. The *Ambulance Act* mandates varying response times based on the severity of a patient's injury. To define these response times and categorize patients based on their injuries, paramedics use the Canadian Triage Acuity Scale (CTAS). CTAS has 5 levels of severity, with level 1 representing life-threatening injuries and level 5 representing non-urgent injuries.
 
 Specific response times are defined under Regulation 257/00, Part VIII of the *Ambulance Act*. This regulation sets the response times for patients suffering from Sudden Cardiac Arrest (SCA) or a CTAS Level 1 injury as 6 minutes and 8 minutes, respectively (source; source). CTAS Levels 2 through 5 do not have mandated response times in this regulation, leaving municipalities to define their response times based on the needs of their inhabitants and the abilities of their paramedic service. The table below (@fig-3) outlines the City of Toronto's response times for each CTAS level.
@@ -175,7 +177,6 @@ raw_response_data |>
 It is important to note that not all calls are mandated to receive a response time within these parameters. Individual municipalities are responsible for defining a "performance plan," which determines the percentage of calls that must be covered by their response times. In Toronto, the enacted performance plan requires 75% of all calls to receive a response within the required time frame. However, prior to 2016, only 60% of SCA calls required a response within the mandated time. \newpage
 
 ### Actual Response Times
-
 The Toronto Paramedic Services has an excellent track record of achieving, and often exceeding, the percentage of calls receiving mandated response times. The graphs below (@fig-4) chart the percentage of incidents served by the mandated response times versus the city's set performance plan. To place these graphs in perspective, the City of Toronto's paramedic service averaged a response time of 6 minutes and 58 seconds for "emergency calls" in 2021 [@cite_ambulance_program].
 
 ```{r}
@@ -218,7 +219,6 @@ raw_response_data |>
 There was only one year when Toronto's paramedics could not meet all of the requirements set by the city's performance plan. In 2013, only 70% of patients identified as CTAS Level 1 were served by the mandated response time, as opposed to the 75% coverage promised by the performance plan. The data provided to the public does not indicate specific response times for each case, so it is impossible to determine how much longer response times were compared to the mandates---in some cases, it may be a difference of a few seconds or more than a few minutes. \newpage
 
 ## Discussion
-
 The data used for analysis in this paper was collected and published by the Toronto Paramedic Service. As such, the data is open to institutional bias. The Toronto Paramedic Services determines what data is collected and the methods used for collection. It also has specific goals for data collection: in the case of response times, they must collect the data so they can report their performance to Ontario's Ministry of Health. These goals can impact the data and cause the service to omit significant data points, such as the lack of a measured, case-by-case response time. The data also has other limitations, such as the lack of metrics after 2021.
 
 When analysing a paramedic service's efficacy, an important consideration is whether response times based on the "golden hour" are valuable metrics. In principle, the sooner a paramedic can respond to a call leads to greater efficiency, as it shortens the time paramedics spend on a call and helps patients receive more immediate care. However, healthcare professionals are debating the relevance of the "golden hour" as the foundation of emergency medical services. One study found that "there was no association between EMS intervals and mortality," suggesting that the "golden hour," in the context of EMS, did not impact a patient's chances of survival [@cite_study_1]. A separate study focusing on rural areas found that longer transport times to a trauma center "did not significantly influence survival" [@cite_study_2]. Contrasting these findings is a study from Quebec, which found that spending over 60 minutes before arriving at a trauma center had a "statistically significant" impact on a patient's odds of survival, although this study only surveyed severely injured patients requiring advanced life support (ALS) [@cite_study_3]. These studies reveal that response times based on the "golden hour" principle are of little help in determining a paramedic service's efficacy, except for the most urgent cases that require advanced measures.
@@ -230,13 +230,11 @@ The Toronto Paramedic Services should include more comprehensive metrics in the 
 ## Inclusive Acknowledgements
 
 **Land Acknowledgement**
-
 We wish to acknowledge the land on which this data was collected and analysed. For thousands of years, it has been the traditional land of the Huron-Wendat, the Seneca, and the Mississaugas of the Credit. Today, this meeting place is still the home to many Indigenous people from across Turtle Island and we are grateful to have the opportunity to work on this land.
 
 This statement was originally prepared in consultation with First Nations House and the Elders Circle for use at the University of Toronto [@cite_land_acknowledgement].\
 
 **Data Acknowledgement**
-
 The data used in this paper was obtained through Open Data Toronto, an initiative to provide openly accessible data about the city [@cite_about_opendatatoronto]. This paper uses three data sets from Open Data Toronto, each provided by the Toronto Paramedic Services:
 
 -   Paramedic Services Incident Data[^1]
@@ -254,8 +252,7 @@ This project contains information licensed under the Open Government Licence -- 
 [^4]: Open Government License -- Toronto is available at: https://open.toronto.ca/open-data-license/
 
 **Resources Acknowledgment**
-
 The primary tool used to analyse data in this paper is R, an open-source statistical programming language [@cite_tool_r]. The paper also uses a number of R packages, including: dplyr [@cite_tool_dplyr], ggplot2 [@cite_tool_ggplot2], here [@cite_tool_here], janitor [@cite_tool_janitor], kableExtra [@cite_tool_kableextra], knitr [@cite_tool_knitr], lubridate [@cite_tool_lubridate], opendatatoronto [@cite_tool_opendatatoronto], readr [@cite_tool_readr], RColorBrewer [@cite_tool_rcolorbrewer], scales [@cite_tool_scales], and tidyverse [@cite_tool_tidyverse]. \newpage
 
 ## References
-<!-- Span required to show references as a numbered section -->
+<!-- Comment required to show references as a numbered section -->

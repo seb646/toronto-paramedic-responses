@@ -37,7 +37,6 @@ raw_response_data$performance_in_percentage |> max() <= 1.00
 
 # Test that the actual performance data is greater than or equal to 0%
 raw_response_data$performance_in_percentage |> min() >= 0.00
-
 ```
 
 ```{r}
@@ -76,5 +75,4 @@ raw_incident_data$dispatch_time |> class() == "POSIXct"
 
 # Test that the incident type contains is comprised of characters
 raw_incident_data$incident_type |> class() == "character"
-
 ```
