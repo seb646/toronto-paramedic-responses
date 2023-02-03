@@ -71,7 +71,7 @@ simulated_response_data
 ```{r}
 simulated_emergent_care_data <-
   tibble(
-    # Define the type of pre-hospital care: while the raw data has multiple values for this, we only use Emergency Requests for Service
+    # Define the type of pre-hospital care (we only use this one value)
     "Pre-Hospital Emergency Care Type" = sample(
       x = "Emergency Request for Service",
       size = 8,
@@ -81,7 +81,7 @@ simulated_emergent_care_data <-
     # List all years between 2014 and 2021, inclusive
     "Year" = c(2014:2021),
     
-    # Vary the data between 200,000 and 300,000
+    # Randomly select numbers between 200,000 and 300,000
     "Actual" = sample(
       x = c(200000:350000),
       size = 8,
@@ -95,14 +95,14 @@ simulated_emergent_care_data
 ```{r}
 simulated_incident_data <-
   tibble(
-    # Vary the date between January 2, 2021 and December 31, 2021
+    # Randomly pick dates between January 2, 2021 and December 31, 2021
     "Dispatch_Time" = sample(
       seq(as.Date('2021/01/01'), as.Date('2021/12/31'), by="day"), 
       size = 1000,
       replace = TRUE
     ),
     
-    # Randomly pick an incident type1000 times
+    # Randomly pick an incident type 1000 times
     "Incident_Type" = sample(
       x = c(
         "Medical",

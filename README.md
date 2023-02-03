@@ -4,9 +4,15 @@ This repository contains all of the files required for an analysis of the Toront
 
 ## Getting Started
 
+### Requirements
+
+This project requires both the [R programming language](https://www.r-project.org/) and [Quarto](https://quarto.org/docs/get-started/). If you do not have these tools in your development environment, please install them now. You will also need an integrated development environment (IDE) capable of running R scripts. I recommend [RStudio](https://posit.co/products/open-source/rstudio/) (local) or [Posit Cloud](https://posit.cloud/) (cloud-based).
+
+Once your environment is set up, you must install several packages that handle various tasks, like graphing data, creating tables, and general organization and processing. You will find a complete list of these packages in the file `install_dependencies.qmd` within the root directory. On lines 16-29 of `install_dependencies.qmd`, there is a code chunk that installs all of the required dependencies for this project. You only need to run this code once to install the required dependencies.
+
 ### Download the data
 
-To begin working with these files, you must first download three data sets from [Open Data Toronto](https://www.toronto.ca/city-government/data-research-maps/open-data/). Don't worry, there's no need for you to physically download any files; the code will take care of that.
+The first step in working with this project is to download three data sets from [Open Data Toronto](https://www.toronto.ca/city-government/data-research-maps/open-data/). Don't worry, there's no need for you to physically download any files; the code will take care of that.
 
 In `inputs/data`, you'll find the `data_import.qmd` file. This is a [Quarto](https://quarto.org/) document, which is a technical publishing system using Markdown as a foundation and allowing us to run embedded R code chunks. Within `data_import.qmd`, you'll see three separate R code chunks:
 
@@ -18,17 +24,17 @@ Run each chunk to fetch the data sets and import the relevant data into `.csv` f
 
 ### Analyse the data
 
-All of the data analysis occurs in `outputs/paper` under the `analysis.qmd` file, another Quarto document. The raw references used in `analysis.qmd` are available under the same folder in the `references.bib` file.
+The core data analysis of this project occurs in `outputs/paper` under the `analysis.qmd` file, another Quarto document. The raw references used in `analysis.qmd` are available under the same folder in the `references.bib` file.
 
 ## Debugging
 
 ### Test the data
 
-If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available in the root folder in the `data-testing.qmd` file. Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new) in this repository and I'll get to it as soon as I can!
+If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available in the root folder in the `data-testing.qmd` file. Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new).
 
 ### Simulate the data
 
-If you'd like to debug the problem yourself, or if you'd like to use a service like Stack Overflow for help, it's important to have some simulated data to reproduce the problem. Within the root directory, I've created a `data-simulation.qmd` file that generates random, fake data based on the information I initially downloaded from Open Data Toronto.
+If you'd like to debug the problem yourself, or if you'd like to use a service like Stack Overflow for help, it's important to have some simulated data to reproduce the problem. Within the root directory, I've created a `data-simulation.qmd` file that generates random, fake data based on the information initially downloaded from Open Data Toronto.
 
 ## Acknowledgments
 
@@ -36,4 +42,4 @@ Created by [Sebastian Rodriguez](https://srod.ca) © 2023, licensed under the [B
 
 This project uses a number of R packages, including: [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html), [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [here](https://cran.r-project.org/web/packages/here/index.html), [janitor](https://cran.r-project.org/web/packages/janitor/index.html), [kableExtra](https://cran.r-project.org/web/packages/kableExtra/index.html), [knitr](https://cran.r-project.org/web/packages/knitr/index.html), [lubridate](https://cran.r-project.org/web/packages/lubridate/index.html), [opendatatoronto](https://cran.r-project.org/web/packages/opendatatoronto/index.html), [readr](https://cran.r-project.org/web/packages/readr/index.html), [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html), [scales](https://cran.r-project.org/web/packages/scales/index.html), and [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html).
 
-Much of this project's development was informed by [Rohan Alexander's](https://rohanalexander.com/) book [*Telling Stories with Data*](https://tellingstorieswithdata.com/).
+Much of this project's development was informed by [Rohan Alexander](https://rohanalexander.com/)'s book [*Telling Stories with Data*](https://tellingstorieswithdata.com/).
