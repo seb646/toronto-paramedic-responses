@@ -16,19 +16,14 @@ thanks: "Code and data supporting this analysis is available at: https://github.
 #| messages: false
 #| echo: false
 #| warning: false
+#| output: false
 #### Preamble ####
 # Title: The Response Time of Toronto's Paramedic Service: How effective is the city's emergency medical care?
 # Author: Sebastian Rodriguez
 # Email: me@srod.ca
 # Date: 3 February 2023
 # GitHub: https://github.com/seb646/toronto-paramedic-responses
-```
 
-```{r}
-#| messages: false
-#| echo: false
-#| warning: false
-#| output: false
 #### Workspace set-up ####
 # Define required libraries 
 library(lubridate)
@@ -42,13 +37,7 @@ library(ggplot2)
 library(kableExtra)
 library(here)
 library(readr)
-```
 
-```{r}
-#| messages: false
-#| echo: false
-#| warning: false
-#### Fetch and clean relevant data sets ####
 # Fetch the the clean response data
 clean_response_data <- readr::read_csv(here::here("inputs/data/clean_response_data.csv"), show_col_types = FALSE)
 
@@ -79,6 +68,7 @@ Before investigating the response times and efficacy of the Toronto Paramedic Se
 #| warning: false
 #| fig-cap: "Number of Emergency Medical Responses in Toronto (by year since 2014)"
 #| label: fig-1
+#### Plot graph on the number of EMS responses in Toronto ####
 clean_performance_data |>
   # Define plot 
   ggplot(aes(
@@ -114,6 +104,7 @@ To further illustrate the responsibility of Toronto's paramedics, @fig-2 outline
 #| warning: false
 #| fig-cap: "Emergency Medical Incidents and Dispatched Ambulances (in 2021)"
 #| label: fig-2
+#### Create a table summarizing emergency medical incident data in Toronto ####
 summarized_incident_data <- clean_incident_data |>
   # Group data by incident type
   group_by(incident_type) |>
@@ -181,6 +172,7 @@ Specific response times are defined under Regulation 257/00, Part VIII of the *A
 #| warning: false
 #| fig-cap: "Mandated Response Times for the Toronto Paramedic Services (as of 2021)"
 #| label: fig-3
+#### Create a table outlining CTAS levels and response times ####
 clean_response_data |>
   # Select type of response and estimated response plan 
   select(patient_category, plan_in_minutes) |>
@@ -228,6 +220,7 @@ The Toronto Paramedic Services has an excellent track record of achieving, and o
 #| warning: false
 #| fig-cap: "Percent of Calls Meeting Mandated Response Times (since 2013)"
 #| label: fig-4
+#### Create graphs plotting mandated and actual response times ####
 clean_response_data |>
   # Plot graphs, define x axis
   ggplot(aes(x=response_time_standard_year)) + 

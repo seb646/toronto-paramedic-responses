@@ -11,9 +11,7 @@ author: "Sebastian Rodriguez"
 # Email: me@srod.ca
 # Date: 3 February 2023
 # GitHub: https://github.com/seb646/toronto-paramedic-responses
-```
 
-```{r}
 #### Workspace set-up ####
 library(tidyverse)
 library(janitor)
@@ -22,6 +20,7 @@ library(readr)
 ```
 
 ```{r}
+#### Test the clean response data #### 
 # Fetch the clean response data 
 clean_response_data <- readr::read_csv(here::here("inputs/data/clean_response_data.csv"), show_col_types = FALSE)
 
@@ -39,6 +38,7 @@ clean_response_data$performance_in_percentage |> min() >= 0.00
 ```
 
 ```{r}
+#### Test the clean performance data #### 
 # Fetch the clean performance data
 clean_performance_data <- readr::read_csv(here::here("inputs/data/clean_performance_data.csv"), show_col_types = FALSE)
 
@@ -56,6 +56,7 @@ clean_performance_data$ems_responses |> min() >= 0
 ```
 
 ```{r}
+#### Test the clean incident data #### 
 # Fetch the clean incident data
 clean_incident_data <- readr::read_csv(here::here("inputs/data/clean_incident_data.csv"), show_col_types = FALSE)
 

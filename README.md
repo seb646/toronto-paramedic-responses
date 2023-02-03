@@ -16,9 +16,9 @@ The first step in working with this project is to download three data sets from 
 
 The `scripts/01-data_import.qmd` file will download the required data sets for you. This file is a [Quarto](https://quarto.org/) document, which is a technical publishing system using Markdown as a foundation and allowing us to run embedded R code chunks. Within `01-data_import.qmd`, you'll see three separate R code chunks:
 
--   The first chunk (lines 22-35) downloads the [Land Ambulance Response Time Standard](https://open.toronto.ca/dataset/land-ambulance-response-time-standard) package
--   The second chunk (lines 37-52) downloads the [Pre-Hospital Emergency Care Performance Metrics](https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics) package
--   The third chunk (lines 54-70) downloads the [Paramedic Services Incident Data](https://open.toronto.ca/dataset/paramedic-services-incident-data) package
+-   The first chunk (lines 20-34) downloads the [Land Ambulance Response Time Standard](https://open.toronto.ca/dataset/land-ambulance-response-time-standard) package
+-   The second chunk (lines 36-51) downloads the [Pre-Hospital Emergency Care Performance Metrics](https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics) package
+-   The third chunk (lines 53-69) downloads the [Paramedic Services Incident Data](https://open.toronto.ca/dataset/paramedic-services-incident-data) package
 
 Run each chunk to fetch the data sets and import the relevant data into `.csv` files. At the end of this process, you should have three new files in `inputs/data`: `raw_response_data.csv`, `raw_incident_data.csv`, and `raw_performance_data.csv`.
 
@@ -26,9 +26,9 @@ Run each chunk to fetch the data sets and import the relevant data into `.csv` f
 
 Before moving to data analysis, we must clean the generated `.csv` files to help us filter, use, and understand the relevant data points. The `scripts/02-data_cleaning.qmd` file handles all of the data cleaning, including fixing column names (many have characters that cannot be used or are insufficent descriptors), selecting the appropriate columns, and filtering any rows that contain null data. Within `02-data_cleaning.qmd`, you'll see three separate R code chunks:
 
--   The first chunk (lines 23-40) cleans `inputs/data/raw_response_data.csv`
--   The second chunk (lines 42-59) cleans `inputs/data/raw_performance_data.csv`
--   The third chunk (lines 61-75) cleans `inputs/data/raw_incident_data.csv`
+-   The first chunk (lines 21-28) cleans `inputs/data/raw_response_data.csv`
+-   The second chunk (lines 40-57) cleans `inputs/data/raw_performance_data.csv`
+-   The third chunk (lines 59-73) cleans `inputs/data/raw_incident_data.csv`
 
 Run each chunk to fetch the raw data sets, clean them, and then create new `.csv` files with the clean data. At the end of this process, you should have three new files in `inputs/data`: `clean_response_data.csv`, `clean_incident_data.csv`, and `clean_performance_data.csv`.
 
@@ -42,9 +42,9 @@ The core data analysis of this project occurs in the `outputs/paper/paper.qmd` f
 
 If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available under the `scripts/03-data_testing.qmd` file. The file contains three code chunks testing each imported package from Open Data Toronto:
 
--   The first chunk (lines 24-39) tests data from `inputs/data/raw_response_data.csv`
--   The second chunk (lines 41-56) tests data from `inputs/data/raw_performance_data.csv`
--   The third chunk (lines 58-77) tests data from `inputs/data/raw_incident_data.csv`
+-   The first chunk (lines 22-38) tests data from `inputs/data/raw_response_data.csv`
+-   The second chunk (lines 40-56) tests data from `inputs/data/raw_performance_data.csv`
+-   The third chunk (lines 58-78) tests data from `inputs/data/raw_incident_data.csv`
 
 Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new).
 

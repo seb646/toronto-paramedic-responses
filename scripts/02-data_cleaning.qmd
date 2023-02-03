@@ -10,9 +10,7 @@ author: "Sebastian Rodriguez"
 # Email: me@srod.ca
 # Date: 3 February 2023
 # GitHub: https://github.com/seb646/toronto-paramedic-responses
-``` 
 
-```{r}
 #### Workspace set-up ####
 library(tidyverse)
 library(dplyr)
@@ -21,7 +19,7 @@ library(readr)
 ```
 
 ```{r}
-# Fetch and clean the raw response data
+#### Fetch and clean the raw response data ####
 clean_response_data <- readr::read_csv(here::here("inputs/data/raw_response_data.csv"), show_col_types = FALSE) |>
   # Change column naming format
   clean_names() |>
@@ -40,7 +38,7 @@ write_csv(
 ```
 
 ```{r}
-# Fetch and clean the raw performance data
+ #### Fetch and clean the raw performance data  ####
 clean_performance_data <- readr::read_csv(here::here("inputs/data/raw_performance_data.csv"), show_col_types = FALSE) |>
   # Change column naming format
   clean_names() |>
@@ -59,7 +57,7 @@ write_csv(
 ```
 
 ```{r}
-# Fetch and clean the raw incident data
+#### Fetch and clean the raw incident data ####
 clean_incident_data <- readr::read_csv(here::here("inputs/data/raw_incident_data.csv"), show_col_types = FALSE) |>
   # Change column naming format
   clean_names() |>
