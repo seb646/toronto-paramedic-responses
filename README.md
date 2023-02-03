@@ -1,6 +1,6 @@
 # Toronto Paramedic Services Response Times
 
-This repository contains all of the files required for an analysis of the Toronto Paramedic Services' response times. The aim of this repository is to analyse the Toronto Paramedic Services' response times to determine its efficacy as an emergency medical service.
+This repository contains all of the files required for an analysis of the Toronto Paramedic Services' response times. The aim of this project is to analyse the Toronto Paramedic Services' response times to determine its efficacy as an emergency medical service.
 
 ## Getting Started
 
@@ -36,4 +36,4 @@ Created by [Sebastian Rodriguez](https://srod.ca) © 2023, licensed under the [B
 
 This project uses a number of R packages, including: [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html), [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [here](https://cran.r-project.org/web/packages/here/index.html), [janitor](https://cran.r-project.org/web/packages/janitor/index.html), [kableExtra](https://cran.r-project.org/web/packages/kableExtra/index.html), [knitr](https://cran.r-project.org/web/packages/knitr/index.html), [lubridate](https://cran.r-project.org/web/packages/lubridate/index.html), [opendatatoronto](https://cran.r-project.org/web/packages/opendatatoronto/index.html), [readr](https://cran.r-project.org/web/packages/readr/index.html), [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html), [scales](https://cran.r-project.org/web/packages/scales/index.html), and [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html).
 
-Much of this project's development was informed by the book [Telling Stories with Data](https://tellingstorieswithdata.com/), written by [Rohan Alexander](https://rohanalexander.com/).
+Much of this project's development was informed by [Rohan Alexander's](https://rohanalexander.com/) book [*Telling Stories with Data*](https://tellingstorieswithdata.com/).
