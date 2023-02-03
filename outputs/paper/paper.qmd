@@ -11,6 +11,7 @@ number-sections: TRUE
 bibliography: references.bib
 thanks: "Code and data supporting this analysis is available at: https://github.com/seb646/toronto-paramedic-responses"
 ---
+
 ```{r}
 #| messages: false
 #| echo: false
@@ -72,7 +73,7 @@ Despite the challenges that Toronto's paramedics face, they must respond to emer
 
 ### Scope of Responsibility
 
-Before investigating the response times and efficacy of the Toronto Paramedic Services, it is important to understand the service's breadth of responsibility. With a population of nearly 3 million people, Toronto requires a medical response to roughly 300,000 emergency calls every year. As the city's population grows, so too does the need for medical assistance. There was a steady increase of approximately 10,000 emergency medical requests per year from 2014 to 2019, as outlined by @fig-1 [@cite_emergency_care_data]. This trend ended briefly in 2020 when the COVID-19 pandemic hit Toronto, placing an incredible strain on the city's healthcare system. Due to a concern about COVID-19 infection, many people delayed or avoided medical care throughout the pandemic [@cite_avoiding_hospitals].
+Before investigating the response times and efficacy of the Toronto Paramedic Services, it is important to understand the service's breadth of responsibility. With a population of nearly 3 million people, Toronto requires a medical response to roughly 300,000 emergency calls every year. As the city's population grows, so too does the need for medical assistance. There was a steady increase of approximately 10,000 emergency medical requests per year from 2014 to 2019, as outlined by [@fig-1; @cite_emergency_care_data]. This trend ended briefly in 2020 when the COVID-19 pandemic hit Toronto, placing an incredible strain on the city's healthcare system. Due to a concern about COVID-19 infection, many people delayed or avoided medical care throughout the pandemic [@cite_avoiding_hospitals].
 
 ```{r}
 #| messages: false
@@ -101,6 +102,7 @@ raw_emergent_care_data |>
   geom_bar(stat="identity", fill = "deepskyblue3")
   
 ```
+
 \newpage
 
 To further illustrate the responsibility of Toronto's paramedics, @fig-2 outlines the number of incidents, and ambulance dispatches the service fielded in 2021 [@cite_paramedic_incident_data]. The paramedic service responded to over 310,000 calls, ranging from routine medical emergencies to motor vehicle accidents and fires. These calls required a total of 315,788 ambulances, with an average of 865 ambulances dispatched per day. Most calls and incidents need between 1 and three ambulances [@cite_paramedic_incident_data]. However, some severe incidents placed an even greater strain on the service's resources:
@@ -155,13 +157,14 @@ clean_incident_data |>
   row_spec(0,bold=TRUE) |>
   column_spec(1, width = "13em") 
 ```
+
 \newpage
 
 ### Mandated Response Times
 
 In Ontario, the *Ambulance Act* defines the rules governing paramedics' response times. The act defines response times as the difference between the time an emergency service dispatcher receives a call and the on-scene arrival of either an ambulance or a person equipped with a defibrillator [@cite_ambulance_act]. The *Ambulance Act* mandates varying response times based on the severity of a patient's injury. To define these response times and categorize patients based on their injuries, paramedics use the Canadian Triage & Acuity Scale (CTAS). CTAS has 5 levels of severity, with level 1 representing life-threatening injuries and level 5 representing non-urgent injuries [@cite_ctas].
 
-Specific response times are defined under Regulation 257/00, Part VIII of the *Ambulance Act*. This regulation sets the response times for patients suffering from Sudden Cardiac Arrest (SCA) or a CTAS Level 1 injury as 6 minutes and 8 minutes, respectively  [@cite_ambulance_act]. CTAS Levels 2 through 5 do not have mandated response times in this regulation, leaving municipalities to define their response times based on the needs of their inhabitants and the abilities of their paramedic service. @fig-3 outlines the City of Toronto's response times for each CTAS level [@cite_ambulance_response_data].
+Specific response times are defined under Regulation 257/00, Part VIII of the *Ambulance Act*. This regulation sets the response times for patients suffering from Sudden Cardiac Arrest (SCA) or a CTAS Level 1 injury as 6 minutes and 8 minutes, respectively [@cite_ambulance_act]. CTAS Levels 2 through 5 do not have mandated response times in this regulation, leaving municipalities to define their response times based on the needs of their inhabitants and the abilities of their paramedic service. @fig-3 outlines the City of Toronto's response times for each CTAS level [@cite_ambulance_response_data].
 
 ```{r}
 #| messages: false
@@ -260,13 +263,13 @@ The data used in this paper was obtained through Open Data Toronto, an initiativ
 -   Land Ambulance Response Time Standard[^2]
 -   Pre-Hospital Emergency Care Performance Metrics[^3]
 
-This project contains information licensed under the Open Government Licence -- Toronto[^4].\
-
 [^1]: Paramedic Services Incident Data is available at: https://open.toronto.ca/dataset/paramedic-services-incident-data
 
 [^2]: Land Ambulance Response Time Standard is available at: https://open.toronto.ca/dataset/land-ambulance-response-time-standard
 
 [^3]: Pre-Hospital Emergency Care Performance Metrics is available at: https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics
+
+This project contains information licensed under the Open Government Licence -- Toronto[^4].\
 
 [^4]: Open Government License -- Toronto is available at: https://open.toronto.ca/open-data-license/
 
@@ -275,4 +278,5 @@ This project contains information licensed under the Open Government Licence -- 
 The primary tool used to analyse data in this paper is R, an open-source statistical programming language [@cite_tool_r]. The paper also uses a number of R packages, including: dplyr [@cite_tool_dplyr], ggplot2 [@cite_tool_ggplot2], here [@cite_tool_here], janitor [@cite_tool_janitor], kableExtra [@cite_tool_kableextra], knitr [@cite_tool_knitr], lubridate [@cite_tool_lubridate], opendatatoronto [@cite_tool_opendatatoronto], readr [@cite_tool_readr], RColorBrewer [@cite_tool_rcolorbrewer], scales [@cite_tool_scales], and tidyverse [@cite_tool_tidyverse]. \newpage
 
 ## References
+
 <!-- Comment required to show references as a numbered section -->

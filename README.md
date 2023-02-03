@@ -24,7 +24,7 @@ Run each chunk to fetch the data sets and import the relevant data into `.csv` f
 
 ### Analyse the data
 
-The core data analysis of this project occurs in the `outputs/paper/analysis.qmd` file, another Quarto document. Once `analysis.qmd` is rendered, Quarto will generate a `analysis.pdf` file in the same folder. The raw references used in `analysis.qmd` are available under the same folder in the `references.bib` file.
+The core data analysis of this project occurs in the `outputs/paper/paper.qmd` file, another Quarto document. Once `paper.qmd` is rendered, Quarto will generate a `paper.pdf` file in the same folder. The raw references used in `paper.qmd` are available under the same folder in the `references.bib` file.
 
 ## Debugging
 
