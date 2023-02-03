@@ -1,0 +1,128 @@
+<!--
+#### Preamble ####
+# Purpose: Read in data from the Toronto Paramedic Service
+# Prerequisites: Need to know where to get Toronto Paramedic Services data
+# Author: Sebastian Rodriguez
+# Email: me@srod.ca
+# Date: 3 February 2023
+# GitHub: https://github.com/seb646/toronto-paramedic-responses
+-->
+---
+title: "Simulating Data from the Toronto Paramedic Service"
+format: html
+author: "Sebastian Rodriguez"
+---
+```{r}
+#### Workspace set-up ####
+# install.packages("tidyverse") # Do this once per computer
+# install.packages("janitor") # This also
+
+library(tidyverse) # A collection of data-related packages
+library(janitor) # Helps clean datasets
+```
+
+```{r}
+simulated_response_data <-
+  tibble(
+    # Patient categories, predefined and set terms
+    "Patient Category" = c(
+      "SCA", 
+      "CTAS 1",
+      "CTAS 2",
+      "CTAS 3",
+      "CTAS 4",
+      "CTAS 5"
+    ),
+    # Response time mandates, predefined and set numbers
+    "Plan in Minutes" = c(
+      6, 
+      8,
+      10,
+      15,
+      20,
+      25
+    ),
+    # Performance mandates, predefined and set percentage
+    "Plan in Percentage" = sample(
+      x = 0.75,
+      size = 6,
+      replace = TRUE
+    ),
+    # Actual percentage of response times meeting performance plan, varying between 60% and 99%
+    "Performance in Percentage" = sample(
+      seq(0.6, 0.99, by = 0.001),
+      size = 6,
+      replace = TRUE
+    ),
+    # Sample year associated with data
+    "Response Time Standard Year" = c(
+      2021, 
+      2021,
+      2021,
+      2021,
+      2021,
+      2021
+    ),
+)
+
+simulated_response_data
+```
+
+```{r}
+simulated_emergent_care_data <-
+  tibble(
+    # Define the type of pre-hospital care: while the raw data has multiple values for this, we only use Emergency Requests for Service
+    "Pre-Hospital Emergency Care Type" = sample(
+      x = "Emergency Request for Service",
+      size = 8,
+      replace = TRUE
+    ),
+    
+    # List all years between 2014 and 2021, inclusive
+    "Year" = c(2014:2021),
+    
+    # Vary the data between 200,000 and 300,000
+    "Actual" = sample(
+      x = c(200000:350000),
+      size = 8,
+      replace = TRUE
+    )
+)
+
+simulated_emergent_care_data
+```
+
+```{r}
+simulated_incident_data <-
+  tibble(
+    # Vary the date between January 2, 2021 and December 31, 2021
+    "Dispatch_Time" = sample(
+      seq(as.Date('2021/01/01'), as.Date('2021/12/31'), by="day"), 
+      size = 1000,
+      replace = TRUE
+    ),
+    
+    # Randomly pick an incident type1000 times
+    "Incident_Type" = sample(
+      x = c(
+        "Medical",
+        "Motor Vehicle Accident",
+        "Emergency Transfer",
+        "Fire",
+        "Airport Standby",
+        "-"
+      ),
+      size = 1000,
+      replace = TRUE
+    ),
+    
+    # Randomly select the number of units arriving on scene, between 1 and 22
+    "Units_Arrived_At_Scene" = sample(
+      x = c(1:22),
+      size = 1000,
+      replace = TRUE
+    )
+  )
+
+simulated_incident_data
+```

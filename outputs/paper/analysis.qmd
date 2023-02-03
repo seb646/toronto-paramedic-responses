@@ -26,6 +26,7 @@ Despite the challenges that Toronto's paramedics face, they must respond to emer
 #| messages: false
 #| echo: false
 #| warning: false
+# Define required libraries 
 library(lubridate)
 library(tidyverse)
 library(dplyr)
@@ -35,10 +36,18 @@ library(scales)
 library(RColorBrewer)
 library(ggplot2)
 library(kableExtra)
-raw_response_data <- readr::read_csv(here::here("inputs/data/raw_response_data.csv")) |>
+library(here)
+library(readr)
+
+# Fetch the .csv file created from Open Data Toronto's "Land Ambulance Response Time Standard" package: https://open.toronto.ca/dataset/land-ambulance-response-time-standard
+raw_response_data <- readr::read_csv(here::here("inputs/data/raw_response_data.csv"), show_col_types = FALSE) |>
   clean_names()
-raw_emergent_care_data <- readr::read_csv(here::here("inputs/data/raw_emergent_care_data.csv"))
-raw_incident_data <- readr::read_csv(here::here("inputs/data/raw_incident_data.csv")) |>
+
+# Fetch Open Data Toronto's "Pre-Hospital Emergency Care Performance Metrics" package:  https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics
+raw_emergent_care_data <- readr::read_csv(here::here("inputs/data/raw_emergent_care_data.csv"), show_col_types = FALSE)
+
+# Fetch Open Data Toronto's "Paramedic Services Incident Data" package: https://open.toronto.ca/dataset/paramedic-services-incident-data
+raw_incident_data <- readr::read_csv(here::here("inputs/data/raw_incident_data.csv"), show_col_types = FALSE) |>
   clean_names()
 ```
 
@@ -232,20 +241,21 @@ The data used in this paper was obtained through Open Data Toronto, an initiativ
 
 -   Paramedic Services Incident Data[^1]
 -   Land Ambulance Response Time Standard[^2]
--   Pre-Hospital Emergency Care Performance Metrics[^3]\
+-   Pre-Hospital Emergency Care Performance Metrics[^3]
 
-This project contains information licensed under the Open Government Licence – Toronto^[Open Government License – Toronto: https://open.toronto.ca/open-data-license/].
+This project contains information licensed under the Open Government Licence -- Toronto[^4].\
 
-[^1]: Paramedic Services Incident Data available at: https://open.toronto.ca/dataset/paramedic-services-incident-data
+[^1]: Paramedic Services Incident Data is available at: https://open.toronto.ca/dataset/paramedic-services-incident-data
 
-[^2]: Land Ambulance Response Time Standard available at: https://open.toronto.ca/dataset/land-ambulance-response-time-standard
+[^2]: Land Ambulance Response Time Standard is available at: https://open.toronto.ca/dataset/land-ambulance-response-time-standard
 
-[^3]: Pre-Hospital Emergency Care Performance Metrics available at: https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics
+[^3]: Pre-Hospital Emergency Care Performance Metrics is available at: https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics
+
+[^4]: Open Government License -- Toronto is available at: https://open.toronto.ca/open-data-license/
 
 **Resources Acknowledgment**
 
-The primary tool used to analyse data in this paper is R, an open-source statistical programming language [@cite_tool_r]. The paper also uses a number of R packages, including: dplyr [@cite_tool_dplyr], ggplot2 [@cite_tool_ggplot2], here [@cite_tool_here], janitor [@cite_tool_janitor], kableExtra [@cite_tool_kableextra], knitr [@cite_tool_knitr], lubridate [@cite_tool_lubridate], opendatatoronto [@cite_tool_opendatatoronto], RColorBrewer [@cite_tool_rcolorbrewer], scales [@cite_tool_scales], and tidyverse [@cite_tool_tidyverse]. \newpage
+The primary tool used to analyse data in this paper is R, an open-source statistical programming language [@cite_tool_r]. The paper also uses a number of R packages, including: dplyr [@cite_tool_dplyr], ggplot2 [@cite_tool_ggplot2], here [@cite_tool_here], janitor [@cite_tool_janitor], kableExtra [@cite_tool_kableextra], knitr [@cite_tool_knitr], lubridate [@cite_tool_lubridate], opendatatoronto [@cite_tool_opendatatoronto], readr [@cite_tool_readr], RColorBrewer [@cite_tool_rcolorbrewer], scales [@cite_tool_scales], and tidyverse [@cite_tool_tidyverse]. \newpage
 
 ## References
-
 <!-- Span required to show references as a numbered section -->
