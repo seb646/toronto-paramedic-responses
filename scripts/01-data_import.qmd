@@ -29,7 +29,7 @@ raw_response_data <-
 # Write data to a .csv file
 write_csv(
   x = raw_response_data$`Land Ambulance Services`,
-  file = "raw_response_data.csv"
+  file = "../inputs/data/raw_response_data.csv"
 )
 ```
 
@@ -44,7 +44,7 @@ raw_emergent_care_data <-
 # Write data to a .csv file
 write_csv(
   x = raw_emergent_care_data,
-  file = "raw_emergent_care_data.csv"
+  file = "../inputs/data/raw_emergent_care_data.csv"
 )
 ```
 
@@ -58,6 +58,6 @@ raw_incident_data <-
 # Write data to a .csv file
 write_csv(
   x = raw_incident_data$`2021`,
-  file = "raw_incident_data.csv",
+  file = "../inputs/data/raw_incident_data.csv",
 )
 ```
