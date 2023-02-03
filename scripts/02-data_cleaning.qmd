@@ -1,0 +1,75 @@
+---
+title: "Import raw csv data, clean it, and generate new csv files"
+format: html
+author: "Sebastian Rodriguez"
+---
+```{r}
+#### Preamble ####
+# Purpose: Import raw csv data, clean it, and generate new csv files
+# Author: Sebastian Rodriguez
+# Email: me@srod.ca
+# Date: 3 February 2023
+# GitHub: https://github.com/seb646/toronto-paramedic-responses
+``` 
+
+```{r}
+#### Workspace set-up ####
+library(tidyverse)
+library(dplyr)
+library(here)
+library(readr)
+```
+
+```{r}
+# Fetch and clean the raw response data
+clean_response_data <- readr::read_csv(here::here("inputs/data/raw_response_data.csv"), show_col_types = FALSE) |>
+  # Change column naming format
+  clean_names() |>
+  
+  # Select the desired columns
+  select(patient_category, performance_in_percentage, plan_in_minutes, plan_in_percentage, response_time_standard_year) |>
+  
+  # Remove rows with no data
+  filter(performance_in_percentage != "NA")
+
+# Create a new cleaned csv file
+write_csv(
+  x = clean_response_data,
+  file = "../inputs/data/clean_response_data.csv",
+)
+```
+
+```{r}
+# Fetch and clean the raw performance data
+clean_performance_data <- readr::read_csv(here::here("inputs/data/raw_performance_data.csv"), show_col_types = FALSE) |>
+  # Change column naming format
+  clean_names() |>
+  
+  # Select the desired columns
+  select(year, actual) |> 
+  
+  # Rename column to meaninful label
+  rename("ems_responses" = "actual")
+
+# Create a new cleaned csv file
+write_csv(
+  x = clean_performance_data,
+  file = "../inputs/data/clean_performance_data.csv",
+)
+```
+
+```{r}
+# Fetch and clean the raw incident data
+clean_incident_data <- readr::read_csv(here::here("inputs/data/raw_incident_data.csv"), show_col_types = FALSE) |>
+  # Change column naming format
+  clean_names() |>
+  
+  # Select the desired columns
+  select(dispatch_time, incident_type, units_arrived_at_scene)
+
+# Create a clean csv file
+write_csv(
+  x = clean_incident_data,
+  file = "../inputs/data/clean_incident_data.csv",
+)
+```

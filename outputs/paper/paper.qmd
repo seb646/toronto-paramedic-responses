@@ -28,6 +28,7 @@ thanks: "Code and data supporting this analysis is available at: https://github.
 #| messages: false
 #| echo: false
 #| warning: false
+#| output: false
 #### Workspace set-up ####
 # Define required libraries 
 library(lubridate)
@@ -48,17 +49,14 @@ library(readr)
 #| echo: false
 #| warning: false
 #### Fetch and clean relevant data sets ####
-# Fetch the .csv file created from Open Data Toronto's "Land Ambulance Response Time Standard" package: https://open.toronto.ca/dataset/land-ambulance-response-time-standard
-raw_response_data <- readr::read_csv(here::here("inputs/data/raw_response_data.csv"), show_col_types = FALSE) |>
-  clean_names()
+# Fetch the the clean response data
+clean_response_data <- readr::read_csv(here::here("inputs/data/clean_response_data.csv"), show_col_types = FALSE)
 
-# Fetch Open Data Toronto's "Pre-Hospital Emergency Care Performance Metrics" package:  https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics
-raw_emergent_care_data <- readr::read_csv(here::here("inputs/data/raw_emergent_care_data.csv"), show_col_types = FALSE) |>
-  clean_names()
+# Fetch clean performance data
+clean_performance_data <- readr::read_csv(here::here("inputs/data/clean_performance_data.csv"), show_col_types = FALSE)
 
-# Fetch Open Data Toronto's "Paramedic Services Incident Data" package: https://open.toronto.ca/dataset/paramedic-services-incident-data
-raw_incident_data <- readr::read_csv(here::here("inputs/data/raw_incident_data.csv"), show_col_types = FALSE) |>
-  clean_names()
+# Fetch the clean incident response
+clean_incident_data <- readr::read_csv(here::here("inputs/data/clean_incident_data.csv"), show_col_types = FALSE)
 ```
 
 ## Introduction
@@ -81,11 +79,11 @@ Before investigating the response times and efficacy of the Toronto Paramedic Se
 #| warning: false
 #| fig-cap: "Number of Emergency Medical Responses in Toronto (by year since 2014)"
 #| label: fig-1
-raw_emergent_care_data |>
+clean_performance_data |>
   # Define plot 
   ggplot(aes(
     x = year, 
-    y = actual
+    y = ems_responses
   )) + 
   
   # Define axis labels
@@ -117,7 +115,7 @@ To further illustrate the responsibility of Toronto's paramedics, @fig-2 outline
 #| warning: false
 #| fig-cap: "Emergency Medical Incidents and Dispatched Ambulances (in 2021)"
 #| label: fig-2
-clean_incident_data <- raw_incident_data |>
+summarized_incident_data <- clean_incident_data |>
   # Group data by incident type
   group_by(incident_type) |>
   
@@ -142,19 +140,31 @@ clean_incident_data <- raw_incident_data |>
   # Rename column headers
   rename("Incident Type" = "incident_type", "Incidents" = "total_incidents", "Dispatches" = "units_sum", "Per Incident" = "the_mean", "Per Day" = "dispatches_day")
 
-# Rename "-" in data to more verbose label
-clean_incident_data[1, "Incident Type"] = "Other Incident"
+# Rename "-" in data to a more meaningful label
+summarized_incident_data[1, "Incident Type"] = "Other Incident"
+
+# Order rows alphabetically by incident type
+summarized_incident_data <- summarized_incident_data[order(summarized_incident_data$`Incident Type`),]
 
 # Render table
-clean_incident_data |>
+summarized_incident_data |>
+  # Table configuration 
   knitr::kable(align = "l", booktabs = TRUE, escape = FALSE, linesep = "") |>
+  
+  # Add headers for table data
   add_header_above(
     c(" ", "Year Totals" = 2, "Dispatch Averages" = 2), 
     align = "c",
-    bold=TRUE
+    bold = TRUE
   ) |>
+  
+  # Style the table 
   kable_styling(font_size = 10, latex_options = "hold_position", full_width = TRUE) |>
+  
+  # Make the table headers bold
   row_spec(0,bold=TRUE) |>
+  
+  # Increase width of first column
   column_spec(1, width = "13em") 
 ```
 
@@ -172,7 +182,7 @@ Specific response times are defined under Regulation 257/00, Part VIII of the *A
 #| warning: false
 #| fig-cap: "Mandated Response Times for the Toronto Paramedic Services (as of 2021)"
 #| label: fig-3
-raw_response_data |>
+clean_response_data |>
   # Select type of response and estimated response plan 
   select(patient_category, plan_in_minutes) |>
   
@@ -204,13 +214,7 @@ The Toronto Paramedic Services has an excellent track record of achieving, and o
 #| warning: false
 #| fig-cap: "Percent of Calls Meeting Mandated Response Times (since 2013)"
 #| label: fig-4
-raw_response_data |>
-  # Select desired variables
-  select(patient_category, performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
-  
-  # Remove rows with no data
-  filter(performance_in_percentage != "NA") |>
-  
+clean_response_data |>
   # Plot graphs, define x axis
   ggplot(aes(x=response_time_standard_year)) + 
   
@@ -230,9 +234,10 @@ raw_response_data |>
   geom_line(aes(y = plan_in_percentage), color = "darkred") + 
   geom_line(aes(y = performance_in_percentage), color="steelblue") +
   
+  guides(shape=TRUE) +
+  
   # Merge graphs into one figure
   facet_wrap(~patient_category) 
-
 ```
 
 There was only one year when Toronto's paramedics could not meet all of the requirements set by the city's performance plan. In 2013, only 70% of patients identified as CTAS Level 1 were served by the mandated response time, as opposed to the 75% coverage promised by the performance plan [@cite_ambulance_response_data]. The data provided to the public does not indicate specific response times for each case, so it is impossible to determine how much longer response times were compared to the mandates---in some cases, it may be a difference of a few seconds or more than a few minutes. \newpage

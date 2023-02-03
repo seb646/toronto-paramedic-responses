@@ -22,10 +22,12 @@ library(janitor) # Helps clean datasets
 ```
 
 ```{r}
+# Simulate data based on Land Ambulance Response Time Standard
+# Link: https://open.toronto.ca/dataset/land-ambulance-response-time-standard 
 simulated_response_data <-
   tibble(
     # Patient categories, predefined and set terms
-    "Patient Category" = c(
+    "patient_category" = c(
       "SCA", 
       "CTAS 1",
       "CTAS 2",
@@ -34,7 +36,7 @@ simulated_response_data <-
       "CTAS 5"
     ),
     # Response time mandates, predefined and set numbers
-    "Plan in Minutes" = c(
+    "plan_in_minutes" = c(
       6, 
       8,
       10,
@@ -43,19 +45,19 @@ simulated_response_data <-
       25
     ),
     # Performance mandates, predefined and set percentage
-    "Plan in Percentage" = sample(
+    "plan_in_percentage" = sample(
       x = 0.75,
       size = 6,
       replace = TRUE
     ),
     # Actual percentage of response times meeting performance plan, varying between 60% and 99%
-    "Performance in Percentage" = sample(
+    "performance_in_percentage" = sample(
       seq(0.6, 0.99, by = 0.001),
       size = 6,
       replace = TRUE
     ),
     # Sample year associated with data
-    "Response Time Standard Year" = c(
+    "response_time_standard_tear" = c(
       2021, 
       2021,
       2021,
@@ -69,55 +71,52 @@ simulated_response_data
 ```
 
 ```{r}
-simulated_emergent_care_data <-
+# Simulate data based on Pre-Hospital Emergency Care Performance Metrics 
+# Link: https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics
+simulated_performance_data <-
   tibble(
-    # Define the type of pre-hospital care (we only use this one value)
-    "Pre-Hospital Emergency Care Type" = sample(
-      x = "Emergency Request for Service",
-      size = 8,
-      replace = TRUE
-    ),
-    
     # List all years between 2014 and 2021, inclusive
-    "Year" = c(2014:2021),
+    "year" = c(2014:2021),
     
     # Randomly select numbers between 200,000 and 300,000
-    "Actual" = sample(
+    "ems_responses" = sample(
       x = c(200000:350000),
       size = 8,
       replace = TRUE
     )
 )
 
-simulated_emergent_care_data
+simulated_performance_data
 ```
 
 ```{r}
+# Simulate data based on Paramedic Services Incident Data
+# Link: https://open.toronto.ca/dataset/paramedic-services-incident-data
 simulated_incident_data <-
   tibble(
     # Randomly pick dates between January 2, 2021 and December 31, 2021
-    "Dispatch_Time" = sample(
+    "dispatch_time" = sample(
       seq(as.Date('2021/01/01'), as.Date('2021/12/31'), by="day"), 
       size = 1000,
       replace = TRUE
     ),
     
     # Randomly pick an incident type 1000 times
-    "Incident_Type" = sample(
+    "incident_type" = sample(
       x = c(
         "Medical",
         "Motor Vehicle Accident",
         "Emergency Transfer",
         "Fire",
         "Airport Standby",
-        "-"
+        "Other"
       ),
       size = 1000,
       replace = TRUE
     ),
     
     # Randomly select the number of units arriving on scene, between 1 and 22
-    "Units_Arrived_At_Scene" = sample(
+    "units_arrived_at_scene" = sample(
       x = c(1:22),
       size = 1000,
       replace = TRUE

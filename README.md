@@ -16,25 +16,41 @@ The first step in working with this project is to download three data sets from 
 
 The `scripts/01-data_import.qmd` file will download the required data sets for you. This file is a [Quarto](https://quarto.org/) document, which is a technical publishing system using Markdown as a foundation and allowing us to run embedded R code chunks. Within `01-data_import.qmd`, you'll see three separate R code chunks:
 
--   The first chunk (lines 21-33) downloads the [Land Ambulance Response Time Standard](https://open.toronto.ca/dataset/land-ambulance-response-time-standard) package
--   The second chunk (lines 35-48) downloads the [Pre-Hospital Emergency Care Performance Metrics](https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics) package
--   The third chunk (lines 50-62) downloads the [Paramedic Services Incident Data](https://open.toronto.ca/dataset/paramedic-services-incident-data) package
+-   The first chunk (lines 22-35) downloads the [Land Ambulance Response Time Standard](https://open.toronto.ca/dataset/land-ambulance-response-time-standard) package
+-   The second chunk (lines 37-52) downloads the [Pre-Hospital Emergency Care Performance Metrics](https://open.toronto.ca/dataset/pre-hospital-emergency-care-performance-metrics) package
+-   The third chunk (lines 54-70) downloads the [Paramedic Services Incident Data](https://open.toronto.ca/dataset/paramedic-services-incident-data) package
 
-Run each chunk to fetch the data sets and import the relevant data into `.csv` files. At the end of this process, you should have three new files in `inputs/data`: `raw_response_data.csv`, `raw_incident_data.csv`, and `raw_emergent_cara_data.csv`.
+Run each chunk to fetch the data sets and import the relevant data into `.csv` files. At the end of this process, you should have three new files in `inputs/data`: `raw_response_data.csv`, `raw_incident_data.csv`, and `raw_performance_data.csv`.
+
+### Clean the data
+
+Before moving to data analysis, we must clean the generated `.csv` files to help us filter, use, and understand the relevant data points. The `scripts/02-data_cleaning.qmd` file handles all of the data cleaning, including fixing column names (many have characters that cannot be used or are insufficent descriptors), selecting the appropriate columns, and filtering any rows that contain null data. Within `02-data_cleaning.qmd`, you'll see three separate R code chunks:
+
+-   The first chunk (lines 23-40) cleans `inputs/data/raw_response_data.csv`
+-   The second chunk (lines 42-59) cleans `inputs/data/raw_performance_data.csv`
+-   The third chunk (lines 61-75) cleans `inputs/data/raw_incident_data.csv`
+
+Run each chunk to fetch the raw data sets, clean them, and then create new `.csv` files with the clean data. At the end of this process, you should have three new files in `inputs/data`: `clean_response_data.csv`, `clean_incident_data.csv`, and `clean_performance_data.csv`.
 
 ### Analyse the data
 
-The core data analysis of this project occurs in the `outputs/paper/paper.qmd` file, another Quarto document. Once `paper.qmd` is rendered, Quarto will generate a `paper.pdf` file in the same folder. The raw references used in `paper.qmd` are available under the same folder in the `references.bib` file.
+The core data analysis of this project occurs in the `outputs/paper/paper.qmd` file, another Quarto document. Once you render `paper.qmd`, Quarto will generate a `paper.pdf` file in the same folder. The raw references used in `paper.qmd` are available under the same folder in the `references.bib` file.
 
 ## Debugging
 
 ### Test the data
 
-If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available under the `scripts/02-data_testing.qmd` file. Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new).
+If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available under the `scripts/03-data_testing.qmd` file. The file contains three code chunks testing each imported package from Open Data Toronto:
+
+-   The first chunk (lines 24-41) tests data from `inputs/data/raw_response_data.csv`
+-   The second chunk (lines 24-41) tests data from `inputs/data/raw_performance_data.csv`
+-   The third chunk (lines 24-41) tests data from `inputs/data/raw_incident_data.csv`
+
+Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new).
 
 ### Simulate the data
 
-If you'd like to debug the problem yourself, or if you'd like to use a service like Stack Overflow for help, it's important to have some simulated data to reproduce the problem. The `scripts/03-data_simulation.qmd` file generates random, fake data based on the information initially downloaded from Open Data Toronto.
+If you'd like to debug the problem yourself, or if you'd like to use a service like Stack Overflow for help, it's important to have some simulated data to reproduce the problem. The `scripts/04-data_simulation.qmd` file generates random, fake data based on the information initially downloaded from Open Data Toronto.
 
 ## Notes
 
