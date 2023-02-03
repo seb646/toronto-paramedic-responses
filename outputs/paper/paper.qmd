@@ -162,7 +162,7 @@ summarized_incident_data |>
   kable_styling(font_size = 10, latex_options = "hold_position", full_width = TRUE) |>
   
   # Make the table headers bold
-  row_spec(0,bold=TRUE) |>
+  row_spec(0, bold = TRUE) |>
   
   # Increase width of first column
   column_spec(1, width = "13em") 
@@ -190,15 +190,30 @@ clean_response_data |>
   distinct() |> 
   
   # Create new descriptor column 
-  cbind(descriptor = c("Sudden Cardiac Arrest", "Resuscitative care", "Emergent care", "Urgent care", "Less urgent care", "Non-urgent care")) |>
+  cbind(descriptor = c(
+    "Sudden Cardiac Arrest", 
+    "Resuscitative care", 
+    "Emergent care", 
+    "Urgent care", 
+    "Less urgent care", 
+    "Non-urgent care")
+  ) |>
   
   # Rename all columns to human-friendly format
-  rename("Response Level" = "patient_category", "Response Time (Mins)" = "plan_in_minutes", "Level Descriptor" = "descriptor") |>
+  rename(
+    "Response Level" = "patient_category", 
+    "Response Time (Mins)" = "plan_in_minutes", 
+    "Level Descriptor" = "descriptor"
+  ) |>
   
   # Render table
   knitr::kable(align = "l", booktabs = TRUE, escape = FALSE, linesep = "") |>
+  
+  # Style the table 
   kable_styling(font_size = 10, latex_options = "hold_position", full_width = TRUE) |>
-  row_spec(0,bold=TRUE)
+  
+  # Make the table headers bold
+  row_spec(0, bold = TRUE)
 
 ```
 
