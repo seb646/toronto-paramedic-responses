@@ -5,3 +5,6 @@ outputs/.DS_Store
 outputs/paper/.DS_Store
 .DS_Store
 *.html
+*.css
+*.js
+*.woff
