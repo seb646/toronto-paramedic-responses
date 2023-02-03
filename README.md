@@ -30,11 +30,17 @@ The core data analysis of this project occurs in `outputs/paper` under the `anal
 
 ### Test the data
 
-If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available in the root folder in the `data-testing.qmd` file. Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new).
+If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available in the root directory in the `data_testing.qmd` file. Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new).
 
 ### Simulate the data
 
-If you'd like to debug the problem yourself, or if you'd like to use a service like Stack Overflow for help, it's important to have some simulated data to reproduce the problem. Within the root directory, I've created a `data-simulation.qmd` file that generates random, fake data based on the information initially downloaded from Open Data Toronto.
+If you'd like to debug the problem yourself, or if you'd like to use a service like Stack Overflow for help, it's important to have some simulated data to reproduce the problem. Within the root directory, I've created a `data_simulation.qmd` file that generates random, fake data based on the information initially downloaded from Open Data Toronto.
+
+## Notes
+
+### Use of Quarto files instead of R scripts
+
+I opted to use Quarto files instead of R scripts to handle processes like data testing and simulation. This allowed me to divide tasks into separate chunks capable of running independently. Although this is not standard convention, I felt it would make this project more reproducible by allowing users to identify specific errors in each chunk. By allowing code chunks to run independently, it also gives users the opportunity to continue with a process despite errors (for example, if users encounter an error with the code in one test, it has no impact on the other tests).
 
 ## Acknowledgments
 
