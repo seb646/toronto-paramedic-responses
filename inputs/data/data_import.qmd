@@ -1,0 +1,47 @@
+```{r}
+library(opendatatoronto)
+library(tidyverse)
+library(dplyr)
+
+#raw_response_data <-
+#  list_package_resources("8b068db1-95b8-4ea9-b942-8a7ce3a5fbd6") |>
+#  filter(name == "Response Time (2013 - 2021)") |>
+#  get_resource()
+
+#write_csv(
+#  x = raw_response_data$`Land Ambulance Services`,
+#  file = "raw_response_data.csv"
+#)
+
+#raw_emergent_care_data <-
+#  list_package_resources("174ace54-bcc7-4885-85c1-76094ab4a0ca") |>
+#  filter(name == "Pre-hospital emergency care performance metrics 2014-2021") |>
+#  get_resource() |>
+#  filter(`Pre-Hospital Emergency Care Type` == "Emergency Request for Service")
+
+#write_csv(
+#  x = raw_emergent_care_data,
+#  file = "raw_emergent_care_data.csv"
+#)
+
+#raw_response_numbered_data <-
+#  list_package_resources("174ace54-bcc7-4885-85c1-76094ab4a0ca") |>
+#  filter(name == "Pre-hospital emergency care performance metrics 2014-2021") |>
+#  get_resource() |>
+#  filter(`Pre-Hospital Emergency Care Type` == "Arrival to Life Threatening Calls 90% of Time")
+
+#write_csv(
+#  x = raw_response_numbered_data,
+#  file = "raw_response_numbered_data.csv",
+#)
+
+raw_incident_data <-
+  list_package_resources("c21f3bd1-e016-4469-abf5-c58bb8e8b5ce") |>
+  filter(name == "paramedic-services-incident-data-2017-2021") |>
+  get_resource()
+
+write_csv(
+  x = raw_incident_data$`2021`,
+  file = "raw_incident_data.csv",
+)
+```

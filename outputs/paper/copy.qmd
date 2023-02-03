@@ -1,0 +1,326 @@
+---
+title: "The Response Time of Toronto's Paramedic Service: How effective is the city's emergency medical care?"
+format: pdf
+author: "Sebastian Rodriguez"
+abstract: "We consider data about the motor vehicle collisions in Toronto." 
+date: 2023-02-03
+editor: visual
+# toc: TRUE
+bibliography: references.bib
+---
+
+## Introduction
+Emergency medical technicians (EMTs) and paramedics provide pre-hospital care to those in need of urgent medical assistance. These professionals respond to every call from the public for aid, and are capable of stabalizing patients suffering from serious illness and trauma. Emergency medical services operate on the principle of the “golden hour,” which is the period of time between an initial injury and treatment when the patient has the highest odds of survival (source). This “golden hour” is the foundation of all medical response efforts, and typically requires ambulances arrive on the scene of an emergency in under 10 minutes (source). 
+
+In Toronto, the public receives emergency medical aid through the Toronto Paramedic Services. As of 2020, the Toronto Paramedic Services employed 1,186 paramedics who operate 234 ambulances out of 45 stations across the city (2020 annual report). The service provides all land ambulatory responses within the city, including paramedicine treatment and transportation to and between hospitals. Provincial and municipal legislation requires that the paramedic service provides a response time of _____. While the service strives to meed these mandated goals, they face staffing, budget, and institutional challenges that often impact their ability to provide care. The service gained public attention in recent years due to slower response times because hospitals are unable to efficently process new patients, leaving paramedics to wait with their patients until they can be seen by a doctor (). Due to the COVID-19 pandemic, a majority of paramedics in the service feel that morale is “either worse or as bad as it has ever been,” leaving many in search of new employment (). 
+
+Despite the stresses placed on Toronto’s paramedics, they must respond to emergencies quickly so they can provide patients with the best odds of survival. This paper investigates the response time of paramedics to see if the service is maximixing their patients’ chances of survival. In particular, this paper reviews historical response times to uncover trends and 
+
+
+## Paramedic Response Data
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+
+library(janitor)
+raw_response_data <- readr::read_csv(here::here("inputs/data/raw_response_data.csv")) |>
+  clean_names()
+raw_emergent_care_data <- readr::read_csv(here::here("inputs/data/raw_emergent_care_data.csv"))
+#raw_response_numbered_data <- readr::read_csv(here::here("inputs/data/raw_response_numbered_data.csv"))
+#raw_response_numbered_data
+```
+### Source and Data Collection
+
+We examined motor vehicle collisions (MVC) in Toronto using data from Toronto Police Services via Open Data Toronto [@cite_opendatatoronto]. Built with the R programming language [@cite_r] and ggplot2 [@cite_ggplot]
+
+### Historic Trends
+
+| Response Level^[Based on the Canadian Triage Acuity Scale (CTAS)] | Target Response Time | Level Descriptor |
+|--------|:------|-------:|
+| SCA | 6 mins | Sudden Cardiac Arrest |
+| CTAS Level 1 | 8 mins | Resuscitative care |
+| CTAS Level 2 | 10 mins | Emergent care |
+| CTAS Level 3 | 15 mins | Urgent care |
+| CTAS Level 4 | 20 mins | Less urgent care |
+| CTAS Level 5 | 25 mins | Non-urgent care |
+https://www.health.gov.on.ca/en/pro/programs/emergency_health/land/default.aspx#CTAS 
+
+
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of SCA Cases Meeting Response Time"
+#| label: fig-1
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+
+raw_response_data |> 
+  select(performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA")
+```
+
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of SCA Cases Meeting Response Time"
+#| label: fig-1
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+
+raw_response_data |>
+#  filter(patient_category == "SCA") |>
+  
+  select(patient_category, performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA") |>
+  
+  ggplot(aes(x=response_time_standard_year)) + 
+  
+  # Define axis labels
+  labs(y = "% of Cases Meeting Response Time", x = "Year") +
+  
+  # geom_hline(yintercept=0.75, linetype="dashed", color = "red") +
+  
+  # Set the theme
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=65, vjust=0.6)) +
+  
+  scale_x_continuous(breaks=seq(2013,2021,2)) + 
+  
+  # Render
+  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
+  geom_line(aes(y = performance_in_percentage), color="steelblue") +
+  facet_wrap(~patient_category) 
+
+```
+
+
+
+
+
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Number of Emergency Medical Responses in Toronto (by year since 2014)"
+#| label: fig-7
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+library(scales)
+library(RColorBrewer)
+
+raw_emergent_care_data |>
+  ggplot(aes(
+    x = Year, 
+    y = Actual
+  )) + 
+  
+  # Define axis labels
+  labs(y = "Emergency Responses", x = "Year") +
+  
+  # Set the theme
+  theme_minimal() +
+  scale_color_brewer(palette="Blues") +
+  
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
+  scale_x_continuous(breaks=seq(2014,2021,1)) + 
+  
+  # Render
+  geom_bar(stat="identity")
+  
+```
+
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of SCA Cases Meeting Response Time"
+#| label: fig-1
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+raw_response_data |>
+  filter(patient_category == "SCA") |>
+  select(performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA") |>
+  
+  ggplot(aes(x=response_time_standard_year)) + 
+  
+  # Define axis labels
+  labs(y = "% of Cases Meeting Response Time", x = "Year") +
+  
+  # geom_hline(yintercept=0.75, linetype="dashed", color = "red") +
+  
+  # Set the theme
+  theme_minimal() +
+  
+  scale_x_continuous(breaks=seq(2013,2021,1)) + 
+  
+  # Render
+  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
+  geom_line(aes(y = performance_in_percentage), color="steelblue")
+```
+
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of CTAS Level 1 Cases Meeting Response Time"
+#| label: fig-2
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+raw_response_data |>
+  filter(patient_category == "CTAS 1") |>
+  select(performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA") |>
+  
+  ggplot(aes(x=response_time_standard_year)) + 
+  
+  # Define axis labels
+  labs(y = "% of Cases Meeting Response Time", x = "Year") +
+  
+  # geom_hline(yintercept=0.75, linetype="dashed", color = "red") +
+  
+  # Set the theme
+  theme_minimal() +
+  
+  scale_x_continuous(breaks=seq(2013,2021,1)) + 
+  
+  # Render
+  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
+  geom_line(aes(y = performance_in_percentage), color="steelblue")
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of CTAS Level 2 Cases Meeting Response Time"
+#| label: fig-3
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+raw_response_data |>
+  filter(patient_category == "CTAS 2") |>
+  select(performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA") |>
+  
+  ggplot(aes(x=response_time_standard_year)) + 
+  
+  # Define axis labels
+  labs(y = "% of Cases Meeting Response Time", x = "Year") +
+  
+  # geom_hline(yintercept=0.75, linetype="dashed", color = "red") +
+  
+  # Set the theme
+  theme_minimal() +
+  
+  scale_x_continuous(breaks=seq(2013,2021,1)) + 
+  
+  # Render
+  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
+  geom_line(aes(y = performance_in_percentage), color="steelblue")
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of CTAS Level 3 Cases Meeting Response Time"
+#| label: fig-4
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+raw_response_data |>
+  filter(patient_category == "CTAS 3") |>
+  select(performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA") |>
+  
+  ggplot(aes(x=response_time_standard_year)) + 
+  
+  # Define axis labels
+  labs(y = "% of Cases Meeting Response Time", x = "Year") +
+  
+  # geom_hline(yintercept=0.75, linetype="dashed", color = "red") +
+  
+  # Set the theme
+  theme_minimal() +
+  
+  scale_x_continuous(breaks=seq(2013,2021,1)) + 
+  
+  # Render
+  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
+  geom_line(aes(y = performance_in_percentage), color="steelblue")
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of CTAS Level 4 Cases Meeting Response Time"
+#| label: fig-5
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+raw_response_data |>
+  filter(patient_category == "CTAS 4") |>
+  select(performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA") |>
+  
+  ggplot(aes(x=response_time_standard_year)) + 
+  
+  # Define axis labels
+  labs(y = "% of Cases Meeting Response Time", x = "Year") +
+  
+  # geom_hline(yintercept=0.75, linetype="dashed", color = "red") +
+  
+  # Set the theme
+  theme_minimal() +
+  
+  scale_x_continuous(breaks=seq(2013,2021,1)) + 
+  
+  # Render
+  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
+  geom_line(aes(y = performance_in_percentage), color="steelblue")
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| fig-cap: "Percent of CTAS Level 5 Cases Meeting Response Time"
+#| label: fig-6
+library(lubridate)
+library(tidyverse)
+library(dplyr)
+raw_response_data |>
+  filter(patient_category == "CTAS 5") |>
+  select(performance_in_percentage, plan_in_percentage, response_time_standard_year) |>
+  filter(performance_in_percentage != "NA") |>
+  
+  ggplot(aes(x=response_time_standard_year)) + 
+  
+  # Define axis labels
+  labs(y = "% of Cases Meeting Response Time", x = "Year") +
+  
+  # geom_hline(yintercept=0.75, linetype="dashed", color = "red") +
+  
+  # Set the theme
+  theme_minimal() +
+  
+  scale_x_continuous(breaks=seq(2013,2021,1)) + 
+  
+  # Render
+  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
+  geom_line(aes(y = performance_in_percentage), color="steelblue")
+```
+
+### 2021 Responses
+
+## Discussion
+- Response times measured by the Toronto Paramedic Service, open to institutional bias
+- Limitations in the dataset only show years up to 2021
+
+## References
