@@ -70,4 +70,8 @@ clean_incident_data$dispatch_time |> class() == "POSIXct"
 
 # Test that the incident type contains is comprised of characters
 clean_incident_data$incident_type |> class() == "character"
+
+# Note: due to an issue with the dispatch_time's column formatting as a date,
+# the second returned Boolean may be false. As long as the first value returns 
+# true, the data passes the test.
 ```

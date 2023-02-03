@@ -98,7 +98,6 @@ clean_performance_data |>
   
   # Render bar chart
   geom_bar(stat="identity", fill = "deepskyblue3")
-  
 ```
 
 \newpage

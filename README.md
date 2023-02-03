@@ -42,9 +42,9 @@ The core data analysis of this project occurs in the `outputs/paper/paper.qmd` f
 
 If you're experiencing problems with the data, I've compiled a document that tests the data against several parameters, like data types, number ranges, and data ranges. This testing document is available under the `scripts/03-data_testing.qmd` file. The file contains three code chunks testing each imported package from Open Data Toronto:
 
--   The first chunk (lines 24-41) tests data from `inputs/data/raw_response_data.csv`
--   The second chunk (lines 24-41) tests data from `inputs/data/raw_performance_data.csv`
--   The third chunk (lines 24-41) tests data from `inputs/data/raw_incident_data.csv`
+-   The first chunk (lines 24-39) tests data from `inputs/data/raw_response_data.csv`
+-   The second chunk (lines 41-56) tests data from `inputs/data/raw_performance_data.csv`
+-   The third chunk (lines 58-77) tests data from `inputs/data/raw_incident_data.csv`
 
 Before running any of these tests, you must first download the data following the steps outlined above. All of these tests should return true. If they do not, feel free to [create an issue](https://github.com/seb646/toronto-paramedic-responses/issues/new).
 
