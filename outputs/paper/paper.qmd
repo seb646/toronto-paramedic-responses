@@ -234,6 +234,7 @@ The Toronto Paramedic Services has an excellent track record of achieving, and o
 #| fig-width: 10
 #| fig-height: 5
 #### Create graphs plotting mandated and actual response times ####
+# Define colors to be used in legend
 colors <- c("Actual Response" = "steelblue", "Mandated Response" = "darkred")
 
 clean_response_data |>
@@ -250,7 +251,7 @@ clean_response_data |>
   # Set the theme
   theme_minimal() +
   
-  # Rotate X-axis labels
+  # Define styles for axis, legends, and labels
   theme(
     axis.title.x = element_text(size = 15, family = "serif", face = "bold"),
     axis.text.x = element_text(size = 14, family = "serif", angle = 70, vjust = 0.7),
@@ -269,6 +270,7 @@ clean_response_data |>
   geom_line(aes(y = plan_in_percentage, color = "Mandated Response")) + 
   geom_line(aes(y = performance_in_percentage, color = "Actual Response")) +
   
+  # Set colors for graph; enable legend
   scale_color_manual(values = colors) +
   
   # Merge graphs into one figure
