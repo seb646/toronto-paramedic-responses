@@ -79,14 +79,22 @@ clean_performance_data |>
   )) + 
   
   # Define axis labels
-  labs(y = "Emergency Responses", x = "Year") +
+  labs(y = "Emergency Medical Responses", x = "Year") +
   
   # Set the theme
   theme_minimal() +
   
+  # Define styles
+  theme(
+    axis.title.x = element_text(size = 9, family = "serif", face = "bold"),
+    axis.text.x = element_text(size = 8, family = "serif"),
+    axis.title.y = element_text(size = 9, family = "serif", face = "bold"),
+    axis.text.y = element_text(size = 8, family = "serif")
+  ) +
+  
   # Set axis formats
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
-  scale_x_continuous(breaks=seq(2014,2021,1)) + 
+  scale_x_continuous(breaks = seq(2014, 2021, 1)) + 
   
   # Render bar chart
   geom_bar(stat="identity", fill = "deepskyblue3")
@@ -220,30 +228,48 @@ The Toronto Paramedic Services has an excellent track record of achieving, and o
 #| messages: false
 #| echo: false
 #| warning: false
-#| fig-cap: "Percent of Calls Meeting Mandated Response Times (since 2013)"
 #| label: fig-4
+#| fig-cap: "Percent of Calls Meeting Mandated Response Times (since 2013)"
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 5
 #### Create graphs plotting mandated and actual response times ####
+colors <- c("Actual Response" = "steelblue", "Mandated Response" = "darkred")
+
 clean_response_data |>
   # Plot graphs, define x axis
-  ggplot(aes(x=response_time_standard_year)) + 
+  ggplot(aes(x = response_time_standard_year)) + 
   
   # Define axis labels
-  labs(y = "% of Calls Meeting Response Time", x = "Year") +
+  labs(
+    y = "Percent of Calls", 
+    x = "Year",
+    color = "Legend"
+  ) +
   
   # Set the theme
   theme_minimal() +
   
   # Rotate X-axis labels
-  theme(axis.text.x = element_text(angle=70, vjust=0.7)) +
+  theme(
+    axis.title.x = element_text(size = 15, family = "serif", face = "bold"),
+    axis.text.x = element_text(size = 14, family = "serif", angle = 70, vjust = 0.7),
+    axis.title.y = element_text(size = 15, family = "serif", face = "bold"),
+    axis.text.y = element_text(size = 14, family = "serif"),
+    legend.title = element_text(size = 15, family = "serif", face = "bold"),
+    legend.text = element_text(size = 14, family = "serif"),
+    strip.text.x = element_text(size = 15, family = "serif", face = "bold"),
+    strip.text.y = element_text(size = 14, family = "serif", face = "bold")
+  ) +
   
   # Set axis formats
-  scale_x_continuous(breaks=seq(2013,2021,2)) + 
+  scale_x_continuous(breaks=seq(2013, 2021, 2)) + 
   
   # Render lines
-  geom_line(aes(y = plan_in_percentage), color = "darkred") + 
-  geom_line(aes(y = performance_in_percentage), color="steelblue") +
+  geom_line(aes(y = plan_in_percentage, color = "Mandated Response")) + 
+  geom_line(aes(y = performance_in_percentage, color = "Actual Response")) +
   
-  guides(shape=TRUE) +
+  scale_color_manual(values = colors) +
   
   # Merge graphs into one figure
   facet_wrap(~patient_category) 
